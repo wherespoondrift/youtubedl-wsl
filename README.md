@@ -13,10 +13,13 @@ Ubuntu (默认)
 sudo apt install jq
 
 本身直接用-f b/bv+ba yt-dlp基本自动弄好
+
 参考https://github.com/yt-dlp/yt-dlp
 
 弄个sh自用，wsl跨平台有脑痛的cp936 与 UTF-8 互相兼容的问题
+
 cmd 输入 chcp 查看代码页
+
 某些视频名称的特殊符号令人投降干脆用shell ls再获取名称，避免有意想不到的符号可能保存时替换。
 还得用IFS_OLD把空格定义为非分隔符，纯属折腾整活
 
