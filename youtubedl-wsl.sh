@@ -36,7 +36,6 @@ echo -e "\033[33m\n`cat $one | grep $bestvideo`\033[0m"
 echo -e "\033[33m`cat $one | grep $bestaudeo`\n\033[0m"
 /mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestvideo --fixup never $dl_url -o youtubedl/%\(title\)s.%\(ext\)s
 /mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestaudeo --fixup never $dl_url -o youtubedl/%\(title\)s.%\(ext\)s
-IFS=$IFS_OLD
 
 echo -e "\033[33m\n`cat $two` \033[0m"
 mp4file=`ls ./youtubedl/*mp4`;mkvfile=`echo -ne $mp4file | sed 's/\.mp4/.mkv/g'`;webmfile=`echo -ne $mp4file | sed 's/\.mp4/.webm/g'`;m4afile=`echo -ne $mp4file | sed 's/\.mp4/.m4a/g'`
@@ -54,7 +53,7 @@ fi
 
 if [ -e "$mkvfile" ];then
 echo -e "\033[33m$filename 下载完成! \033[0m"
-IFS_OLD=$IFS;IFS=$'\n'
+
 find ./youtubedl -maxdepth 1 -type f ! -name '*.mkv' -print0 | xargs -0 rm -vf
 IFS=$IFS_OLD
 	if [ -s $list ] 2>/dev/null;then
