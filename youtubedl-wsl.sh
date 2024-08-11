@@ -23,7 +23,7 @@ two=${tmpdir}/two
 # ./binaries/yt-dlp.exe -j https://www.youtube.com/playlist?list=PLZDwfIerdFF2SmqIHBUVx-EpoqGeoFhuN 2>/dev/null | jq -r '.id,.title,.duration,.duration_string,.original_url,"☢"' | tr "\n" "\t" | sed $'s/\\t☢\\t/\\n/g' | tee playlist.txt
 
 IFS_OLD=$IFS;IFS=$'\n'
-
+echo -e "\033[33mloading... \033[0m"
 /mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -v --no-check-certificate -j $dl_url | jq -r '.id,.title,.duration,.duration_string,.original_url,"☢"' | tr "\n" "\t" | sed $'s/\\t☢\\t/\\n/g' | tee $two
 filename=`cat $two | awk -F "\t" '{ print $2 }'`
 duration=`cat $two | awk -F "\t" '{ print $3 }'`
@@ -34,21 +34,17 @@ bestvideo=`cat $one | grep "video only" | tr -d "\~" | awk -F "[ ]+" '{ print $7
 bestaudeo=`cat $one | grep "audio only" | tr -d "\~" | awk -F "[ ]+" '{ print $7,$1 }' | grep -i "m" | sort -n | tail -n 1| awk -F "[ ]+" '{ print $2 }'`
 echo -e "\033[33m\n`cat $one | grep $bestvideo`\033[0m"
 echo -e "\033[33m`cat $one | grep $bestaudeo`\n\033[0m"
-/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestvideo --fixup never $dl_url -o youtubedl/%\(title\)s.mp4
-/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestaudeo --fixup never $dl_url -o youtubedl/%\(title\)s.%\(ext\)s
+/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestvideo --fixup never $dl_url -o youtubedl/%\(title\)s.video
+/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestaudeo --fixup never $dl_url -o youtubedl/%\(title\)s.audio
 
 echo -e "\033[33m\n`cat $two` \033[0m"
-mp4file=`ls ./youtubedl/*mp4`;mkvfile=`echo -ne $mp4file | sed 's/\.mp4/.mkv/g'`;webmfile=`echo -ne $mp4file | sed 's/\.mp4/.webm/g'`;m4afile=`echo -ne $mp4file | sed 's/\.mp4/.m4a/g'`
-#mp4file="./youtubedl/$filename.mp4";mkvfile="./youtubedl/$filename.mkv";webmfile="./youtubedl/$filename.webm";m4afile="./youtubedl/$filename.m4a"
+videofile=`ls ./youtubedl/*.video`;mkvfile=`echo -ne $videofile | sed 's/\.video/.mkv/g'`;audiofile=`echo -ne $videofile | sed 's/\.video/.m4a/g'`
 
-if [ -e "$webmfile" ];then
-echo -e "\033[33mwebm ok! \033[0m"
-/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\mkvmerge.exe --ui-language zh_CN --no-date --priority normal --output "$mkvfile" --language 0:zh \( "$mp4file" \) --language "0:zh" --track-name "0:中文" \( "$webmfile" \) --track-order "0:0,1:0"
+if [ -e "$audiofile" ];then
+echo -e "\033[33mfile ok! \033[0m"
+/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\mkvmerge.exe --ui-language zh_CN --no-date --priority normal --output "$mkvfile" --language 0:zh \( "$videofile" \) --language "0:zh" --track-name "0:中文" \( "$audiofile" \) --track-order "0:0,1:0"
 fi
-if [ -e "$m4afile" ];then
-echo -e "\033[33mm4a ok! \033[0m"
-/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\mkvmerge.exe --ui-language zh_CN --no-date --priority normal --output "$mkvfile" --language 0:zh \( "$mp4file" \) --language "0:zh" --track-name "0:中文" \( "$m4afile" \) --track-order "0:0,1:0"
-fi
+
 
 
 if [ -e "$mkvfile" ];then
