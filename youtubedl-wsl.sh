@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wait()
+waiturl()
 {
 echo -e "\033[36m请输入完整网址: \n比如https://www.youtube.com/watch?v=3MLIZRww_Q0\t\033[0m"
 read dl_url
@@ -82,9 +82,11 @@ IFS=$IFS_OLD
 		prepare
 	fi
 else
-	echo -e "\033[33m playlist.txt下载完成 \033[0m"
-	rm -vf $list
-	wait
+	if [ -e $list ];then
+		echo -e "\033[33m playlist.txt下载完成 \033[0m"
+		rm -vf $list
+	fi
+	waiturl
 fi
 }
 prepare
