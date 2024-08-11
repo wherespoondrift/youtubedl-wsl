@@ -26,7 +26,7 @@ bash
 
 ./binaries/yt-dlp.exe -j https://www.youtube.com/playlist?list=目标 2>/dev/null | jq -r '.id,.title,.duration,.duration_string,.original_url,"☢"' | tr "\n" "\t" | sed $'s/\\t☢\\t/\\n/g' | tee playlist.txt
 
-要是视频名称居然有☢字符，那就换一个做分割标记 或者就让它去吧，别太留恋
+如果视频名称居然有☢字符，那就换一个做分割标记 或者就让它去吧，别太留恋
 
 有的列表夹带所以存playlist.txt手动编辑剃掉不要的再批量下
 
