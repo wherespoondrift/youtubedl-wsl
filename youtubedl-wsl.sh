@@ -38,7 +38,7 @@ echo -e "\033[33m`cat $one | grep $bestaudeo`\n\033[0m"
 /mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestaudeo --fixup never $dl_url -o youtubedl/%\(title\)s.audio
 
 echo -e "\033[33m\n`cat $two` \033[0m"
-videofile=`ls ./youtubedl/*.video`;mkvfile=`echo -ne $videofile | sed 's/\.video/.mkv/g'`;audiofile=`echo -ne $videofile | sed 's/\.video/.m4a/g'`
+videofile=`ls ./youtubedl/*.video`;mkvfile=`echo -ne $videofile | sed 's/\.video/.mkv/g'`;audiofile=`echo -ne $videofile | sed 's/\.video/.audio/g'`
 
 if [ -e "$audiofile" ];then
 echo -e "\033[33mfile ok! \033[0m"
