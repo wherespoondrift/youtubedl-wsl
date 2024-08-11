@@ -34,7 +34,7 @@ bestvideo=`cat $one | grep "video only" | tr -d "\~" | awk -F "[ ]+" '{ print $7
 bestaudeo=`cat $one | grep "audio only" | tr -d "\~" | awk -F "[ ]+" '{ print $7,$1 }' | grep -i "m" | sort -n | tail -n 1| awk -F "[ ]+" '{ print $2 }'`
 echo -e "\033[33m\n`cat $one | grep $bestvideo`\033[0m"
 echo -e "\033[33m`cat $one | grep $bestaudeo`\n\033[0m"
-/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestvideo --fixup never $dl_url -o youtubedl/%\(title\)s.%\(ext\)s
+/mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestvideo --fixup never $dl_url -o youtubedl/%\(title\)s.mp4
 /mnt/c/WINDOWS/system32/cmd.exe /C binaries\\yt-dlp.exe -k -v --no-check-certificate -f $bestaudeo --fixup never $dl_url -o youtubedl/%\(title\)s.%\(ext\)s
 
 echo -e "\033[33m\n`cat $two` \033[0m"
