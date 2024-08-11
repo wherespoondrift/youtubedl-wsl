@@ -1,12 +1,14 @@
 # youtubedl-wsl
 Use linux shell in windows 10  by wsl run yt-dlp
 
+运行环境 启用wsl的 windows10
+
 wsl -l
 
 适用于 Linux 的 Windows 子系统分发版:
 Ubuntu (默认)
 
-需求安装工具 jq
+安装工具 jq
 
 sudo apt install jq
 
