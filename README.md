@@ -25,3 +25,4 @@ bash
 ./binaries/yt-dlp.exe -j https://www.youtube.com/playlist?list=目标 2>/dev/null | jq -r '.id,.title,.duration,.duration_string,.original_url,"☢"' | tr "\n" "\t" | sed $'s/\\t☢\\t/\\n/g' | tee playlist.txt
 
 有的列表夹带所以存playlist.txt手动编辑剃掉不要的再批量下
+交叉系统用也有好处，有好用的程序没跨平台
